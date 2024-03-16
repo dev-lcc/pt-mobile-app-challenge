@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,6 +5,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     id("kotlin-parcelize")
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -16,7 +16,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -27,21 +27,23 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
-            freeCompilerArgs += listOf(
+            freeCompilerArgs = freeCompilerArgs + listOf(
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-Xexpect-actual-classes",
             )
         }
     }
 
     sourceSets {
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
         }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -49,6 +51,25 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            // Koin
+            implementation(libs.koin.core)
+
+            // Coroutines
+            implementation(libs.kotlinx.coroutines.core)
+
+            // Network Frameworks
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.engine.cio)
+            implementation(libs.ktor.client.serialization)
+            implementation(libs.ktor.client.contentNegotiation)
+
+        }
+        commonTest.dependencies {
+            implementation(libs.koin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.ktor.client.mock)
         }
     }
 }

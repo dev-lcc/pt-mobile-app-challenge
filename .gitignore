@@ -31,3 +31,11 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Fleet IDE
+/.fleet
+.DS_Store
+.externalNativeBuild
+
+# iOS
+ios.xcworkspace/

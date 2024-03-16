@@ -1,9 +1,11 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    id("kotlin-parcelize")
 }
 
 kotlin {
@@ -26,6 +28,14 @@ kotlin {
         }
     }
     
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            freeCompilerArgs += listOf(
+                "-Xexpect-actual-classes",
+            )
+        }
+    }
+
     sourceSets {
         
         androidMain.dependencies {

@@ -13,6 +13,9 @@ androidx-test-junit = "1.1.5"
 compose = "1.6.2"
 compose-plugin = "1.6.0"
 
+### Robolectric
+robolectric = "4.11.1"
+
 junit = "4.13.2"
 kotlin = "1.9.22"
 
@@ -24,6 +27,9 @@ kotlinxSerialization = "1.6.3"
 
 ### Ktor
 ktor = "2.3.9"
+
+### SQLDelight
+sqlDelight = "2.0.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -39,6 +45,9 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 
+### Robolectric
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+
 ### Koin Dependency Injection Framework
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }   # exclude group: 'org.mockito'
@@ -49,7 +58,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
-## Ktor
+### Ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-engine-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
@@ -57,9 +66,18 @@ ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json"
 ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 
+### SQLDelight
+sqlDelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
+sqlDelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+sqlDelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
+sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+sqlDelight-dialect-sqlite338 = { module = "app.cash.sqldelight:sqlite-3-38-dialect", version.ref = "sqlDelight" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }

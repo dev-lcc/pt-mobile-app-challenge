@@ -1,0 +1,38 @@
+import
+kotlin.Boolean;
+import
+kotlin.String;
+import
+kotlin.Long;
+
+
+CREATE TABLE Place
+(
+    placeId       INTEGER NOT NULL PRIMARY KEY,
+    name          TEXT,
+    description   TEXT,
+    hostThumbnail TEXT,
+    lat           REAL,
+    lng           REAL,
+    reviewsCount  INTEGER,
+    rating        REAL,
+    address       TEXT,
+    amenities     TEXT,  -- Amenity stringified JSON
+    price         TEXT,  -- Place.Price stringified JSON
+    type          TEXT,  -- PlaceType
+    tags          TEXT  -- List<String> stringified JSON
+);
+
+getAllPlaces:
+SELECT * FROM Place
+LIMIT :offset, :limit;
+
+getPlaceById:
+SELECT * FROM Place WHERE placeId = :placeId;
+
+upsertPlace:
+INSERT OR REPLACE INTO Place(placeId, name, description, hostThumbnail, lat, lng, reviewsCount, rating, address, amenities, price, type, tags)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+removeAll:
+DELETE FROM Place;

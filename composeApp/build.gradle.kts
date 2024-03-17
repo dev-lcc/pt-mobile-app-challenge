@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     id("kotlin-parcelize")
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.sqlDelight)
 }
 
 kotlin {
@@ -42,6 +43,15 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+
+            // Local Database
+            implementation(libs.sqlDelight.driver.android)
+            implementation(libs.sqlDelight.driver.sqlite)
+        }
+
+        iosMain.dependencies {
+            // Local Database
+            implementation(libs.sqlDelight.driver.native)
         }
 
         commonMain.dependencies {
@@ -65,12 +75,17 @@ kotlin {
             implementation(libs.ktor.client.serialization)
             implementation(libs.ktor.client.contentNegotiation)
 
+            // Local Database
+            implementation(libs.sqlDelight.runtime)
+            implementation(libs.sqlDelight.coroutines.extensions)
+
         }
         commonTest.dependencies {
             implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.ktor.client.mock)
         }
+
     }
 }
 
@@ -105,6 +120,21 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+
+        // https://github.com/xerial/sqlite-jdbc?tab=readme-ov-file
+        testImplementation("org.xerial:sqlite-jdbc") {
+            // Override the version of sqlite used by sqlite-driver to match Android API 24
+            version { strictly("3.45.2.0") }
+        }
+        testDebugImplementation(libs.robolectric)
     }
 }
 
+sqldelight {
+    databases {
+        create("PTDatabase") {
+            packageName.set("io.github.devlcc.ptmobileappchallenge")
+            dialect(libs.sqlDelight.dialect.sqlite338)
+        }
+    }
+}

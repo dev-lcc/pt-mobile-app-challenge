@@ -18,6 +18,7 @@ data class Place(
     val price: Price? = null,
     val type: PlaceType? = null,
     val tags: List<String> = listOf(),
+    // TODO:: isFavorite: Boolean
 ): CommonParcelable {
     
     @CommonParcelize

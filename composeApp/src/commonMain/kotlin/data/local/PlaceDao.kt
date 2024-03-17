@@ -96,6 +96,7 @@ class PlaceDaoImpl(
             price = place.price,
             type = place.type,
             tags = place.tags,
+            isFavorite = place.isFavorite,
         )
     }
     

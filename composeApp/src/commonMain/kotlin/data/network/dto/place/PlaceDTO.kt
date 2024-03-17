@@ -18,6 +18,7 @@ data class PlaceDTO(
     val price: PriceDTO? = null,
     val type: String? = null,   // "location", "hotel", "food", "adventure"
     val tags: List<String> = listOf(),
+    val isFavorite: Boolean? = null,
 ) {
     
     @Serializable

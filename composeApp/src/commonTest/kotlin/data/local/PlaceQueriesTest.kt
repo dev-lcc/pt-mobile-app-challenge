@@ -113,6 +113,7 @@ object PlaceMockData {
             val reviewsCount = Random.nextLong(999_999_999L)
             val rating = Random.nextDouble(5.0)
             val price = Random.nextDouble(99_999.0)
+            val isFavorite: Long = if(Random.nextBoolean()) 1 else 0
             add(
                 PlaceSOT(
                     placeId = placeId,
@@ -145,6 +146,7 @@ object PlaceMockData {
                         value = tags.shuffled().subList(0, Random.nextInt(tags.size - 1))
                             .mapNotNull { tag -> tag.takeIf { it.isNotEmpty() } }
                     ),
+                    isFavorite = isFavorite,
                 )
             )
         }

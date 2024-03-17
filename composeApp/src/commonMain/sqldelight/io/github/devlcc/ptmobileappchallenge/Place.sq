@@ -1,10 +1,3 @@
-import
-kotlin.Boolean;
-import
-kotlin.String;
-import
-kotlin.Long;
-
 
 CREATE TABLE Place
 (
@@ -20,7 +13,8 @@ CREATE TABLE Place
     amenities     TEXT,  -- Amenity stringified JSON
     price         TEXT,  -- Place.Price stringified JSON
     type          TEXT,  -- PlaceType
-    tags          TEXT  -- List<String> stringified JSON
+    tags          TEXT,  -- List<String> stringified JSON
+    isFavorite    INTEGER   -- 1 == true | 0 == false
 );
 
 getAllPlaces:
@@ -31,8 +25,8 @@ getPlaceById:
 SELECT * FROM Place WHERE placeId = :placeId;
 
 upsertPlace:
-INSERT OR REPLACE INTO Place(placeId, name, description, hostThumbnail, lat, lng, reviewsCount, rating, address, amenities, price, type, tags)
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO Place(placeId, name, description, hostThumbnail, lat, lng, reviewsCount, rating, address, amenities, price, type, tags, isFavorite)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 removeAll:
 DELETE FROM Place;

@@ -1,3 +1,5 @@
+@file:JvmName("LocalKoinModuleAndroid")
+
 package data.local.di
 
 import data.local.DriverFactory

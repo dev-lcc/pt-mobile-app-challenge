@@ -47,24 +47,29 @@ class PlaceDaoTest : KoinTest {
         //
         val sampleDataCount = 3
         val expected = PlaceMockData.places(sampleDataCount)
+        println("Get All Places() -> expected =\n${expected.map { it.placeId }}")
 
         placeDao.upsert(
             batchCount = sampleDataCount,
             *(expected).toTypedArray(),
         )
 
+        val inputOffset = 0
+        val inputCount = sampleDataCount + 1
+
         //
         // WHEN
         //
         val actual = placeDao.getAllPlaces(
-            offset = 0,
-            limit = sampleDataCount,
+            offset = inputOffset,
+            count = inputCount,
         )
+        println("Get All Places() -> actual =\n${actual.map { it.placeId }}")
 
         //
         // THEN
         //
-        assertTrue { actual.containsAll(expected) }
+        assertTrue { actual == expected }
     }
 
     @Test
@@ -95,6 +100,40 @@ class PlaceDaoTest : KoinTest {
         assertTrue { actual == expected }
     }
 
+    @Test
+    fun `Remove Range`() = runTest {
+        //
+        // GIVEN
+        //
+        val sampleDataCount = 5
+        val sampleData = PlaceMockData.places(sampleDataCount)
+        val inputOffset = 0
+        val inputCount = 3
+
+        placeDao.upsert(
+            batchCount = sampleDataCount,
+            *(sampleData).toTypedArray(),
+        )
+
+        val expected = placeDao.getAllPlaces(offset = inputCount, count = Int.MAX_VALUE)
+        println("Remove Range() -> expected =\n${expected.map { it.placeId }}")
+
+        //
+        // WHEN
+        //
+        placeDao.removeRange(
+            offset = inputOffset,
+            count = inputCount,
+        )
+        val actual = placeDao.getAllPlaces(offset = 0, count = Int.MAX_VALUE)
+
+        //
+        // THEN
+        //
+        println("Remove Range() -> actual =\n${actual.map { it.placeId }}")
+        assertTrue { actual == expected }
+    }
+
     // TODO:: Cover all other test cases...
 
 }
@@ -103,49 +142,51 @@ object PlaceMockData {
 
     fun places(count: Int): List<PlaceSOT> =
         mutableListOf<PlaceSOT>().apply {
-            val placeId = Random.nextLong(999_999_999L)
-            val number = Random.nextInt(999_999_999)
-            val lat = Random.nextDouble(99.99999999)
-            val lng = Random.nextDouble(99.99999999)
-            val reviewsCount = Random.nextLong(999_999_999L)
-            val rating = Random.nextDouble(5.0)
-            val price = Random.nextDouble(99_999.0)
-            val isFavorite: Long = if(Random.nextBoolean()) 1 else 0
-            add(
-                PlaceSOT(
-                    placeId = placeId,
-                    name = "Some place somewhere $number",
-                    description = "Some description $number",
-                    hostThumbnail = null,
-                    lat = lat,
-                    lng = lng,
-                    reviewsCount = reviewsCount,
-                    rating = rating,
-                    address = "Some address at $number",
-                    amenities = Json.encodeToString(
-                        serializer = ListSerializer(String.serializer()),
-                        value = amenities.shuffled().subList(0, Random.nextInt(amenities.size - 1))
-                    ),
-                    price = Json.encodeToString(
-                        String.serializer(),
-                        """
-                        {
-                        "rate": $price,
-                        "currency": "USD",
-                        "total": $price,
-                        "priceItems": []
-                        }
-                        """.trimIndent()
-                    ),
-                    type = placeTypes.random(),
-                    tags = Json.encodeToString(
-                        serializer = ListSerializer(String.serializer()),
-                        value = tags.shuffled().subList(0, Random.nextInt(tags.size - 1))
-                            .mapNotNull { tag -> tag.takeIf { it.isNotEmpty() } }
-                    ),
-                    isFavorite = isFavorite,
+            for (index in 0..count) {
+                val placeId = index.toLong()
+                val number = placeId
+                val lat = Random.nextDouble(99.99999999)
+                val lng = Random.nextDouble(99.99999999)
+                val reviewsCount = Random.nextLong(999_999_999L)
+                val rating = Random.nextDouble(5.0)
+                val price = Random.nextDouble(99_999.0)
+                val isFavorite: Long = if (Random.nextBoolean()) 1 else 0
+                add(
+                    PlaceSOT(
+                        placeId = placeId,
+                        name = "Some place somewhere $number",
+                        description = "Some description $number",
+                        hostThumbnail = null,
+                        lat = lat,
+                        lng = lng,
+                        reviewsCount = reviewsCount,
+                        rating = rating,
+                        address = "Some address at $number",
+                        amenities = Json.encodeToString(
+                            serializer = ListSerializer(String.serializer()),
+                            value = amenities.shuffled().subList(0, Random.nextInt(amenities.size - 1))
+                        ),
+                        price = Json.encodeToString(
+                            String.serializer(),
+                            """
+                            {
+                            "rate": $price,
+                            "currency": "USD",
+                            "total": $price,
+                            "priceItems": []
+                            }
+                            """.trimIndent()
+                        ),
+                        type = placeTypes.random(),
+                        tags = Json.encodeToString(
+                            serializer = ListSerializer(String.serializer()),
+                            value = tags.shuffled().subList(0, Random.nextInt(tags.size - 1))
+                                .mapNotNull { tag -> tag.takeIf { it.isNotEmpty() } }
+                        ),
+                        isFavorite = isFavorite,
+                    )
                 )
-            )
+            }
         }
 
     val amenities = Amenity.entries.map { it.rawValue }

@@ -1,3 +1,5 @@
+@file:JvmName("AppDatabaseAndroid")
+
 package data.local
 
 import android.content.Context

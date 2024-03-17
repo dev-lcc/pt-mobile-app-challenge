@@ -1,3 +1,5 @@
+@file:JvmName("CommonParcelableAndroid")
+
 package model 
 
 import android.os.Parcelable

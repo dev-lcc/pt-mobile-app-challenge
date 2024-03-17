@@ -126,11 +126,17 @@ class PlacesApiServiceTest : KoinTest {
         loadKoinModules(engineModule)
         placesApiService = get()
 
+        val inputOffset = 0
+        val inputLimit = expected.data.size
+
         //
         // WHEN
         //
         val actual = withContext(Dispatchers.Default) {
-            placesApiService.getAllPlaces()
+            placesApiService.getAllPlaces(
+                offset = inputOffset,
+                limit = inputLimit,
+            )
         }
 
         //
@@ -153,13 +159,19 @@ class PlacesApiServiceTest : KoinTest {
         loadKoinModules(engineModule)
         placesApiService = get()
 
+        val inputOffset = 0
+        val inputLimit = 10
+
         //
         // WHEN
         //
         var error: Throwable? = null
         try {
             withContext(Dispatchers.Default) {
-                placesApiService.getAllPlaces()
+                placesApiService.getAllPlaces(
+                    offset = inputOffset,
+                    limit = inputLimit,
+                )
             }
             fail("Get All Places - Error() -> MUST fail...")
         } catch (err: Throwable) {

@@ -12,7 +12,7 @@ interface PlaceDao {
 
     suspend fun getAllPlaces(
         offset: Int,
-        limit: Int,
+        count: Int,
     ): List<PlaceSOT>
 
     fun getAllPlacesStream(
@@ -26,6 +26,10 @@ interface PlaceDao {
     suspend fun upsert(place: PlaceSOT)
     suspend fun upsert(batchCount: Int, vararg places: PlaceSOT)
     
+    fun removeById(placeId: Long)
+
+    fun removeRange(offset: Int, count: Int)
+
     fun removeAll()
 
 }
@@ -35,22 +39,22 @@ class PlaceDaoImpl(
 ) : PlaceDao {
     override suspend fun getAllPlaces(
         offset: Int,
-        limit: Int,
+        count: Int,
     ): List<PlaceSOT> {
         return database.placeQueries.getAllPlaces(
             offset = offset.toLong(),
-            limit = limit.toLong(),
+            count = count.toLong(),
         )
             .executeAsList()
     }
 
     override fun getAllPlacesStream(
         offset: Int,
-        limit: Int,
+        count: Int,
     ): Flow<List<PlaceSOT>> {
         return database.placeQueries.getAllPlaces(
             offset = offset.toLong(),
-            limit = limit.toLong(),
+            count = count.toLong(),
         )
             .asFlow()
             .mapToList(Dispatchers.Default)
@@ -100,8 +104,25 @@ class PlaceDaoImpl(
         )
     }
     
+    override fun removeById(placeId: Long) {
+        database.transaction {
+            database.placeQueries.removeById(placeId)
+        }
+    }
+
+    override fun removeRange(offset: Int, count: Int) {
+        database.transaction {
+            database.placeQueries.removeRange(
+                offset = offset.toLong(),
+                count = count.toLong(),
+                )
+        }
+    }
+
     override fun removeAll() {
-        database.placeQueries.removeAll()
+        database.transaction {
+            database.placeQueries.removeAll()
+        }
     }
 
 }

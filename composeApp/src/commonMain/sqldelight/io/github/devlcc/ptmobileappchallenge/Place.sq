@@ -19,7 +19,7 @@ CREATE TABLE Place
 
 getAllPlaces:
 SELECT * FROM Place
-LIMIT :offset, :limit;
+LIMIT :offset, :count;
 
 getPlaceById:
 SELECT * FROM Place WHERE placeId = :placeId;
@@ -27,6 +27,12 @@ SELECT * FROM Place WHERE placeId = :placeId;
 upsertPlace:
 INSERT OR REPLACE INTO Place(placeId, name, description, hostThumbnail, lat, lng, reviewsCount, rating, address, amenities, price, type, tags, isFavorite)
 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+removeById:
+DELETE FROM Place WHERE placeId = :placeId;
+
+removeRange:
+DELETE FROM Place WHERE placeId IN (SELECT placeId FROM Place LIMIT :offset, :count);
 
 removeAll:
 DELETE FROM Place;

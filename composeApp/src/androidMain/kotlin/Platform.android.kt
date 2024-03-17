@@ -1,3 +1,5 @@
+@file:JvmName("PlatformAndroid")
+
 import android.os.Build
 
 class AndroidPlatform : Platform {

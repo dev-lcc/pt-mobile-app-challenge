@@ -12,7 +12,10 @@ interface PlacesApiService {
     /**
      * [GET] /listplaces/all
      */
-    suspend fun getAllPlaces(): GetPlacesResponse
+    suspend fun getAllPlaces(
+        offset: Int,
+        limit: Int,
+    ): GetPlacesResponse
 
     /**
      * [GET] /places/{id}
@@ -27,7 +30,10 @@ class PlacesApiServiceImpl(
     private val ktorClient: HttpClient
 ) : PlacesApiService {
 
-    override suspend fun getAllPlaces(): GetPlacesResponse {
+    override suspend fun getAllPlaces(
+        offset: Int,
+        limit: Int,
+    ): GetPlacesResponse {
         try {
             val response = ktorClient.request(
                 "${restApiEndpoint}/listplaces/all"

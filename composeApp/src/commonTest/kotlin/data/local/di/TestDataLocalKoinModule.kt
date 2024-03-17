@@ -1,11 +1,13 @@
 package data.local.di
 
+import androidx.annotation.VisibleForTesting
 import data.local.createInMemorySqlDriver
 import io.github.devlcc.ptmobileappchallenge.PTDatabase
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
 // For Testing, instantiate an in-memory PTDatabase instance
+@VisibleForTesting
 fun testDataLocalModule(): List<Module> =
     getDataLocalModule() + module {
         

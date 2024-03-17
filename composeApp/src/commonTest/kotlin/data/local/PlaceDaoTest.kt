@@ -1,7 +1,6 @@
 package data.local
 
 import data.local.di.testDataLocalModule
-import io.github.devlcc.ptmobileappchallenge.PTDatabase
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.serializer
@@ -20,9 +19,8 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class PlaceQueriesTest : KoinTest {
+class PlaceDaoTest : KoinTest {
 
-    private lateinit var database: PTDatabase
     private lateinit var placeDao: PlaceDao
 
     @BeforeTest
@@ -33,7 +31,6 @@ class PlaceQueriesTest : KoinTest {
             )
         }
 
-        database = get()
         placeDao = get()
     }
 

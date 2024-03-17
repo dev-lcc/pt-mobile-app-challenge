@@ -1,6 +1,6 @@
 package data.network
 
-import data.network.di.TestNetworkModule
+import data.network.di.testDataNetworkModule
 import data.network.dto.place.GetPlacesResponse
 import data.network.dto.place.PlaceDTO
 import io.ktor.client.engine.*
@@ -29,7 +29,7 @@ class PlacesApiServiceTest : KoinTest {
     fun setup() {
         startKoin {
             modules(
-                TestNetworkModule.build(
+                testDataNetworkModule(
                     coroutineScope = testCoroutineScope,
                 )
             )

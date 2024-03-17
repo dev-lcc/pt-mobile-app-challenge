@@ -1,10 +1,13 @@
 package data.network
 
 import data.network.di.TestNetworkModule
+import data.network.dto.place.GetPlacesResponse
+import data.network.dto.place.PlaceDTO
 import io.ktor.client.engine.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.*
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -13,10 +16,7 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.get
 import kotlin.random.Random
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class PlacesApiServiceTest : KoinTest {
 
@@ -49,7 +49,11 @@ class PlacesApiServiceTest : KoinTest {
         //
         // GIVEN
         //
+        val json: Json = get()
+
         val inputPlaceId = Random.nextLong(999_999_999L)
+        val expected: PlaceDTO =
+            json.decodeFromString(PlaceDTO.serializer(), PlacesApiServiceMock.GetPlaceById.success(inputPlaceId))
         val engineModule = module {
             single<HttpClientEngine> { PlacesApiServiceMock.GetPlaceById.mockEngineStatusSuccess(inputPlaceId) }
         }
@@ -59,14 +63,15 @@ class PlacesApiServiceTest : KoinTest {
         //
         // WHEN
         //
-        withContext(Dispatchers.Default) {
+        val actual = withContext(Dispatchers.Default) {
             placesApiService.getPlaceById(id = inputPlaceId)
         }
 
         //
         // THEN
         //
-        assertTrue { true }
+        println("Get Place By Id - Success() -> actual = \n${json.encodeToString(PlaceDTO.serializer(), actual)}")
+        assertTrue { actual == expected }
 
         unloadKoinModules(engineModule)
     }
@@ -76,6 +81,8 @@ class PlacesApiServiceTest : KoinTest {
         //
         // GIVEN
         //
+        val json: Json = get()
+
         val inputPlaceId = Random.nextLong(999_999_999L)
         val engineModule = module {
             single<HttpClientEngine> { PlacesApiServiceMock.GetPlaceById.mockEngineStatusError() }
@@ -91,6 +98,7 @@ class PlacesApiServiceTest : KoinTest {
             withContext(Dispatchers.Default) {
                 placesApiService.getPlaceById(inputPlaceId)
             }
+            fail("Get Place By Id - Error() -> MUST fail...")
         } catch (err: Throwable) {
             error = err
         }
@@ -98,6 +106,7 @@ class PlacesApiServiceTest : KoinTest {
         //
         // THEN
         //
+        println("Get Place By Id - Error() -> error = \n${error?.message}")
         assertTrue { error != null }    // operation above must have thrown an error
 
         unloadKoinModules(engineModule)
@@ -108,6 +117,9 @@ class PlacesApiServiceTest : KoinTest {
         //
         // GIVEN
         //
+        val json: Json = get()
+
+        val expected = json.decodeFromString(GetPlacesResponse.serializer(), PlacesApiServiceMock.GetAllPlaces.Success)
         val engineModule = module {
             single<HttpClientEngine> { PlacesApiServiceMock.GetAllPlaces.mockEngineStatusSuccess() }
         }
@@ -117,14 +129,15 @@ class PlacesApiServiceTest : KoinTest {
         //
         // WHEN
         //
-        withContext(Dispatchers.Default) {
+        val actual = withContext(Dispatchers.Default) {
             placesApiService.getAllPlaces()
         }
 
         //
         // THEN
         //
-        assertTrue { true }
+        println("Get All Places - Success() -> actual =\n${json.encodeToString(GetPlacesResponse.serializer(), actual)}")
+        assertTrue { actual == expected }
 
         unloadKoinModules(engineModule)
     }
@@ -148,6 +161,7 @@ class PlacesApiServiceTest : KoinTest {
             withContext(Dispatchers.Default) {
                 placesApiService.getAllPlaces()
             }
+            fail("Get All Places - Error() -> MUST fail...")
         } catch (err: Throwable) {
             error = err
         }
@@ -155,11 +169,12 @@ class PlacesApiServiceTest : KoinTest {
         //
         // THEN
         //
+        println("Get All Places - Error() -> error =\n${error?.message}")
         assertTrue { error != null }    // operation above must have thrown an error
 
         unloadKoinModules(engineModule)
     }
-    
+
     // TODO:: Implement other network-related test cases here
 
 }

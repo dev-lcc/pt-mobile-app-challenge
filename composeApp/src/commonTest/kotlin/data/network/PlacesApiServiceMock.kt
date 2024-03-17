@@ -127,7 +127,10 @@ object PlacesApiServiceMock {
                         "amount": 6
                     }
                 ]
-            }
+            },
+            "type": "location",
+            "tags": [],
+            "isFavorite": true
         }
         """.trimIndent()
         
@@ -258,7 +261,10 @@ object PlacesApiServiceMock {
                                     "amount": 6
                                 }
                             ]
-                        }
+                        },
+                        "type": "location",
+                        "tags": ["popular"],
+                        "isFavorite": false
                     },
                     {
                         "id": 19796151,
@@ -362,7 +368,10 @@ object PlacesApiServiceMock {
                                     "amount": 6
                                 }
                             ]
-                        }
+                        },
+                        "type": "location",
+                        "tags": ["popular"],
+                        "isFavorite": false
                     },
                     {
                         "id": 9825542,
@@ -455,7 +464,10 @@ object PlacesApiServiceMock {
                                     "amount": 5
                                 }
                             ]
-                        }
+                        },
+                        "type": "location",
+                        "tags": ["popular"],
+                        "isFavorite": false
                     },
                     {
                         "id": 15297775,
@@ -561,7 +573,10 @@ object PlacesApiServiceMock {
                                     "amount": 6
                                 }
                             ]
-                        }
+                        },
+                        "type": "location",
+                        "tags": ["popular"],
+                        "isFavorite": false
                     }
                 ]
             }

@@ -17,7 +17,7 @@ interface PlaceDao {
 
     fun getAllPlacesStream(
         offset: Int,
-        limit: Int,
+        count: Int,
     ): Flow<List<PlaceSOT>>
 
     suspend fun getPlaceById(placeId: Long): PlaceSOT

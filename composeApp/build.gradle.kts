@@ -79,6 +79,9 @@ kotlin {
             implementation(libs.sqlDelight.runtime)
             implementation(libs.sqlDelight.coroutines.extensions)
 
+            // Store
+            implementation(libs.store)
+
         }
         commonTest.dependencies {
             implementation(libs.koin.test)

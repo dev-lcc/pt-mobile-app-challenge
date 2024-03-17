@@ -31,6 +31,9 @@ ktor = "2.3.9"
 ### SQLDelight
 sqlDelight = "2.0.1"
 
+### MobileNativeFoundation/Store
+store = "5.0.0-beta02"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -73,6 +76,9 @@ sqlDelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", versi
 sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 sqlDelight-dialect-sqlite338 = { module = "app.cash.sqldelight:sqlite-3-38-dialect", version.ref = "sqlDelight" }
+
+### MobileNativeFoundation/Store
+store = { module = "org.mobilenativefoundation.store:store5", version.ref = "store" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

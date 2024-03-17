@@ -1,8 +1,10 @@
 package model.place
 
+import kotlinx.serialization.Serializable
 import model.CommonParcelable
 import model.CommonParcelize
 
+@Serializable
 @CommonParcelize
 data class Place(
     val id: Long? = null,
@@ -21,6 +23,7 @@ data class Place(
     val isFavorite: Boolean? = null,
 ): CommonParcelable {
     
+    @Serializable
     @CommonParcelize
     data class Price(
         val rate: Int? = null,
@@ -29,6 +32,7 @@ data class Place(
         val priceItems: List<Item> = listOf(),
     ): CommonParcelable {
         
+        @Serializable
         @CommonParcelize
         data class Item(
             val title: String? = null,

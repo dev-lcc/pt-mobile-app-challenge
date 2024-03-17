@@ -4,7 +4,7 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import io.github.devlcc.ptmobileappchallenge.PTDatabase
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import io.github.devlcc.ptmobileappchallenge.Place as PlaceSOT
 
@@ -36,6 +36,7 @@ interface PlaceDao {
 
 class PlaceDaoImpl(
     private val database: PTDatabase,
+    private val ioCoroutineDispatcher: CoroutineDispatcher,
 ) : PlaceDao {
     override suspend fun getAllPlaces(
         offset: Int,
@@ -57,7 +58,7 @@ class PlaceDaoImpl(
             count = count.toLong(),
         )
             .asFlow()
-            .mapToList(Dispatchers.Default)
+            .mapToList(ioCoroutineDispatcher)
     }
 
     override suspend fun getPlaceById(placeId: Long): PlaceSOT {
@@ -68,7 +69,7 @@ class PlaceDaoImpl(
     override fun getPlaceByIdStream(placeId: Long): Flow<PlaceSOT> {
         return database.placeQueries.getPlaceById(placeId)
             .asFlow()
-            .mapToOne(Dispatchers.Default)
+            .mapToOne(ioCoroutineDispatcher)
     }
 
     override suspend fun upsert(place: PlaceSOT) {

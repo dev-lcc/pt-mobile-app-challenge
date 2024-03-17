@@ -22,6 +22,7 @@ fun getDataLocalModule() = module {
     single<PlaceDao> {
         PlaceDaoImpl(
             database = get(),
+            ioCoroutineDispatcher = get(),
         )
     }
     

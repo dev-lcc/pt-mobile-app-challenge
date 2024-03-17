@@ -3,6 +3,8 @@ package data.local.di
 import androidx.annotation.VisibleForTesting
 import data.local.createInMemorySqlDriver
 import io.github.devlcc.ptmobileappchallenge.PTDatabase
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -19,4 +21,7 @@ fun testDataLocalModule(): List<Module> =
                 driver = driver,
             )
         }
+
+        // Override IO Dispatcher
+        single<CoroutineDispatcher> { Dispatchers.Default }
     }

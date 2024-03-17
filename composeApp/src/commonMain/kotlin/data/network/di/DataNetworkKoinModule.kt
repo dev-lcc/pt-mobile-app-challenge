@@ -26,14 +26,6 @@ fun getDataNetworkModule(
         )
     }
 
-    single<Json> {
-        Json {
-            prettyPrint = true
-            isLenient = true
-            ignoreUnknownKeys = true
-        }
-    }
-
     single<HttpClientEngine> {
         provideHttpClientEngine()
     }

@@ -60,6 +60,7 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(compose.animation)
             implementation(compose.material)
             implementation(compose.material3)
             /*implementation(compose.materialIconsExtended)*/
@@ -86,6 +87,11 @@ kotlin {
 
             // Store
             implementation(libs.store)
+
+            // Navigation
+            implementation(libs.navigation.precompose)
+            implementation(libs.navigation.precompose.viewmodel)
+            implementation(libs.navigation.precompose.koin)
 
         }
         commonTest.dependencies {

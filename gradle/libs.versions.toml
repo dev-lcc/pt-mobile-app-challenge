@@ -17,6 +17,9 @@ androidx-test-junit = "1.1.5"
 compose = "1.6.3"   #"1.6.2"
 compose-plugin = "1.6.1"    #"1.6.0"
 
+### PreCompose Navigation(https://github.com/Tlaster/PreCompose)
+navigation-precompose = "1.5.11"
+
 ### Robolectric
 robolectric = "4.11.1"
 
@@ -62,6 +65,11 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+
+### Robolectric
+navigation-precompose = { module = "moe.tlaster:precompose", version.ref = "navigation-precompose" }
+navigation-precompose-viewmodel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "navigation-precompose" }
+navigation-precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "navigation-precompose" }
 
 ### Robolectric
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }

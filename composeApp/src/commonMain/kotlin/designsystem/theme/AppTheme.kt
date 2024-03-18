@@ -1,6 +1,7 @@
 package designsystem.theme
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.lightColorScheme
 
@@ -31,6 +32,7 @@ fun AppTheme(
     /*darkTheme: Boolean = isSystemInDarkTheme(),*/
     // Dynamic color is available on Android 12+
     /*dynamicColor: Boolean = true,*/
+    typography: Typography = AppTypography(),
     content: @Composable () -> Unit
 ) {
     
@@ -46,7 +48,7 @@ fun AppTheme(
     
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = AppTypography(),
+        typography = typography,
         content = content,
     )
     

@@ -33,7 +33,7 @@ fun Preview_AppFilledButton_Enabled() {
                 containerColor = AppColor.BlueAccent,
                 contentColor = Color.White
             ),
-            cornerRadius = 24.dp,
+            cornerRadius = 18.dp,
             enabled = true,
         ) {
             Text("Explore")

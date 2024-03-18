@@ -4,6 +4,7 @@ import data.local.di.getDataLocalModule
 import data.network.di.getDataNetworkModule
 import data.store.di.getDataStoreModule
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication
@@ -28,13 +29,17 @@ internal fun initKoin(
                 }
             },
             getDataLocalModule(),
-            getDataNetworkModule(),
+            getDataNetworkModule(
+                isDebug = isDebug,
+            ),
             getDataStoreModule(),
+            getViewModelsModule(),
         )
     }
 
     return koinApplication
 }
 
+@OptIn(ExperimentalCoroutinesApi::class)
 fun provideIOCoroutineDispatcher(): CoroutineDispatcher =
     newFixedThreadPoolContext(8, "PTMobileAppChallenge-IOCoroutineDispatcher")

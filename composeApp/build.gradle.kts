@@ -69,7 +69,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
 
             // Koin
-            implementation(libs.koin.core)
+            api(libs.koin.core)
 
             // Coroutines
             implementation(libs.kotlinx.coroutines.core)
@@ -92,6 +92,11 @@ kotlin {
             api(libs.navigation.precompose)
             implementation(libs.navigation.precompose.viewmodel)
             implementation(libs.navigation.precompose.koin)
+
+            // Coil
+            api(libs.coil3.kt)
+            api(libs.coil3.kt.compose)
+            api(libs.coil3.kt.network.ktor)
 
         }
         commonTest.dependencies {

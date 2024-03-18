@@ -18,7 +18,7 @@ fun MainScreenPreview() {
         AppTheme(/*typography = MaterialTheme.typography*/) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
-                color = Color.LightGray/*MaterialTheme.colorScheme.inverseSurface*/
+                color = MaterialTheme.colorScheme.inverseSurface
             ) {
                 MainScreen(modifier = Modifier.fillMaxSize())
             }

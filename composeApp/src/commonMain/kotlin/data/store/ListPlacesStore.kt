@@ -4,8 +4,10 @@ import data.local.PlaceDao
 import data.network.PlacesApiService
 import data.network.dto.place.PlaceDTO
 import data.store.converters.mapToLocal
+import data.store.converters.mapToOutput
 import io.github.devlcc.ptmobileappchallenge.Place as PlaceSOT
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 import model.place.Place
 import org.mobilenativefoundation.store.store5.*
@@ -21,9 +23,9 @@ class ListPlacesStore(
 
     private val converter = provideConverter()
 
-    operator fun invoke() =
+    operator fun invoke(): Store<KeyListPlaces, List<Place>> =
         StoreBuilder
-            .from<KeyListPlaces, List<PlaceDTO>, List<PlaceSOT>>(
+            .from<KeyListPlaces, List<PlaceDTO>, List<Place>>(
                 fetcher = Fetcher.ofFlow {
                     flow {
                         emit(
@@ -35,7 +37,12 @@ class ListPlacesStore(
                     }
                 },
                 sourceOfTruth = SourceOfTruth.of(
-                    reader = { key -> placesLocalDao.getAllPlacesStream(offset = key.first, count = key.second) },
+                    reader = { key ->
+                        placesLocalDao.getAllPlacesStream(offset = key.first, count = key.second)
+                            .map { places: List<PlaceSOT> ->
+                                places.map { place: PlaceSOT -> place.mapToOutput(json) }
+                            }
+                     },
                     writer = { key, local ->
                         placesLocalDao.upsert(
                             10,

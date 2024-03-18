@@ -41,6 +41,9 @@ sqlDelight = "2.0.1"
 ### MobileNativeFoundation/Store
 store = "5.0.0-beta02"
 
+### Coil Async Image Library
+coil3-kt = "3.0.0-alpha06"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -102,6 +105,11 @@ sqlDelight-dialect-sqlite338 = { module = "app.cash.sqldelight:sqlite-3-38-diale
 
 ### MobileNativeFoundation/Store
 store = { module = "org.mobilenativefoundation.store:store5", version.ref = "store" }
+
+### Coil Async Image Library
+coil3-kt = { module = "io.coil-kt.coil3:coil", version.ref = "coil3-kt" }
+coil3-kt-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3-kt" }
+coil3-kt-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil3-kt" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

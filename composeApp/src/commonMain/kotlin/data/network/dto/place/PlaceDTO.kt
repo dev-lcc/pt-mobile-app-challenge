@@ -8,7 +8,7 @@ data class PlaceDTO(
     val id: Long? = null,
     val name: String? = null,
     val description: String? = null,
-    val hostThumbnail: String? = null,  // Cover Image URL
+    val images: List<String> = listOf(),  // Image URLs
     val lat: Float? = null,    // latitude
     val lng: Float? = null,    // longiture
     val reviewsCount: Long? = null,

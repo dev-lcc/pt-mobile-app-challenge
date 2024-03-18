@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.sp
 import designsystem.component.AppButtonDefaults
 import designsystem.component.AppFilledButton
 import designsystem.theme.AppColor
+import model.place.Place
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.NavOptions
@@ -65,10 +66,12 @@ fun App() {
             ) {
                 MainScreen(
                     modifier = Modifier.fillMaxSize(),
-                    onNavigateToPlaceDetail = { placeId: Long ->
-                         navigator.navigate(
-                             AppDestination.PlaceDetail(placeId).path,
-                         )
+                    onNavigateToPlaceDetail = { place: Place ->
+                        place.id?.let { placeId ->
+                            navigator.navigate(
+                                AppDestination.PlaceDetail(placeId).path,
+                            )
+                        }
                     },
                 )
             }

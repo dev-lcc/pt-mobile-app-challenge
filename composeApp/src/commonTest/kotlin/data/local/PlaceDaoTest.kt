@@ -147,7 +147,7 @@ object PlaceMockData {
                 val number = placeId
                 val lat = Random.nextDouble(99.99999999)
                 val lng = Random.nextDouble(99.99999999)
-                val reviewsCount = Random.nextLong(999_999_999L)
+                val reviewsCount = Random.nextLong(999_999_999)
                 val rating = Random.nextDouble(5.0)
                 val price = Random.nextDouble(99_999.0)
                 val isFavorite: Long = if (Random.nextBoolean()) 1 else 0
@@ -156,7 +156,7 @@ object PlaceMockData {
                         placeId = placeId,
                         name = "Some place somewhere $number",
                         description = "Some description $number",
-                        hostThumbnail = null,
+                        coverImage = null,
                         lat = lat,
                         lng = lng,
                         reviewsCount = reviewsCount,

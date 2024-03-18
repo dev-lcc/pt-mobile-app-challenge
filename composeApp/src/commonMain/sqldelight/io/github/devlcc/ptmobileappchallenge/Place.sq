@@ -4,7 +4,7 @@ CREATE TABLE Place
     placeId       INTEGER NOT NULL PRIMARY KEY,
     name          TEXT,
     description   TEXT,
-    hostThumbnail TEXT,
+    coverImage    TEXT,
     lat           REAL,
     lng           REAL,
     reviewsCount  INTEGER,
@@ -25,7 +25,7 @@ getPlaceById:
 SELECT * FROM Place WHERE placeId = :placeId;
 
 upsertPlace:
-INSERT OR REPLACE INTO Place(placeId, name, description, hostThumbnail, lat, lng, reviewsCount, rating, address, amenities, price, type, tags, isFavorite)
+INSERT OR REPLACE INTO Place(placeId, name, description, coverImage, lat, lng, reviewsCount, rating, address, amenities, price, type, tags, isFavorite)
 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 removeById:

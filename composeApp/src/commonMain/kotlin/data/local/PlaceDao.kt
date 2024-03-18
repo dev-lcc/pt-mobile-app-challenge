@@ -91,7 +91,7 @@ class PlaceDaoImpl(
             placeId = place.placeId,
             name = place.name,
             description = place.description,
-            hostThumbnail = place.hostThumbnail,
+            coverImage = place.coverImage,
             lat = place.lat,
             lng = place.lng,
             reviewsCount = place.reviewsCount,

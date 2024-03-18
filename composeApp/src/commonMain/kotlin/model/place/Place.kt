@@ -10,10 +10,10 @@ data class Place(
     val id: Long? = null,
     val name: String? = null,
     val description: String? = null,
-    val hostThumbnail: String? = null,  // Cover Image
+    val coverImage: String? = null,  // Cover Image
     val lat: Float? = null,    // latitude
     val lng: Float? = null,    // longiture
-    val reviewsCount: Int? = null,
+    val reviewsCount: Long? = null,
     val rating: Float? = null,
     val address: String? = null,    // fully qualitified address. i.e. "Clichy, Île-de-France, France" | "Paris, Île-de-France, France"
     val amenities: List<Amenity> = listOf(),

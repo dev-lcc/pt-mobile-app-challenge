@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import model.place.Place
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.NavOptions
 import moe.tlaster.precompose.navigation.PopUpTo
@@ -26,6 +27,7 @@ import moe.tlaster.precompose.navigation.rememberNavigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import presentation.main.home.HomeScreen
 import ptmobileappchallenge.composeapp.generated.resources.Res
 import ptmobileappchallenge.composeapp.generated.resources.bottom_nav_label_account
 import ptmobileappchallenge.composeapp.generated.resources.bottom_nav_label_favorites
@@ -37,7 +39,7 @@ import ptmobileappchallenge.composeapp.generated.resources.compose_multiplatform
 @Composable
 fun MainScreen(
     modifier: Modifier,
-    onNavigateToPlaceDetail: ((Long/*Place.id*/) -> Unit) = {},
+    onNavigateToPlaceDetail: ((Place) -> Unit) = {},
 ) {
 
     val mainNavigator = rememberNavigator("main")
@@ -88,25 +90,13 @@ fun MainScreen(
             scene(
                 route = MainDestination.Home.path,
             ) {
-                Column(
+                HomeScreen(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(Modifier.weight(1f))
-                    Image(
-                        modifier = Modifier.size(128.dp),
-                        painter = painterResource(Res.drawable.compose_multiplatform),
-                        contentDescription = null,
-                    )
-
-                    Text(
-                        modifier = Modifier,
-                        fontSize = 18.sp,
-                        text = "${stringResource(Res.string.bottom_nav_label_home)} Screen",
-                    )
-                    Spacer(Modifier.weight(1f))
-                }
+                    onNavigateToPlaceDetail = onNavigateToPlaceDetail,
+                    onNavigateToSeeAll = {
+                        // TODO:: Navigate to See All Popular Places
+                    }
+                )
             }
 
             //

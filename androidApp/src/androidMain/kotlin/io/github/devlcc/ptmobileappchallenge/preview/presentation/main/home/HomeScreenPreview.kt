@@ -7,11 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import designsystem.theme.AppTheme
-import io.github.devlcc.ptmobileappchallenge.preview.presentation.main.home.components.TestDataPlaceItemCardFullView
-import io.github.devlcc.ptmobileappchallenge.preview.presentation.main.home.components.TestDataPlaceItemCardSemiView
 import model.place.PlaceType
 import presentation.main.home.HomeScreen
 import presentation.main.home.HomeUiState
+import presentation.main.home.test.HomeScreenTestData
 
 @Preview
 @Composable
@@ -48,7 +47,7 @@ fun HomeScreenPreview_Listings_Content_WithPopular_NoRecommended() {
                     selectedType = PlaceType.Location,
                     listings = HomeUiState.Listings.Content(
                         popular = HomeUiState.Listings.Content.Popular.Content(
-                            TestDataPlaceItemCardFullView.places
+                            HomeScreenTestData.places
                         ),
                         recommended = HomeUiState.Listings.Content.Recommended.Empty
                     ),
@@ -74,7 +73,7 @@ fun HomeScreenPreview_Listings_Content_NoPopular_WithRecommended() {
                     listings = HomeUiState.Listings.Content(
                         popular = HomeUiState.Listings.Content.Popular.Empty,
                         recommended = HomeUiState.Listings.Content.Recommended.Content(
-                            TestDataPlaceItemCardSemiView.places
+                            HomeScreenTestData.places
                         )
                     ),
                 )
@@ -98,10 +97,10 @@ fun HomeScreenPreview_Listings_Content_Full() {
                     selectedType = PlaceType.Location,
                     listings = HomeUiState.Listings.Content(
                         popular = HomeUiState.Listings.Content.Popular.Content(
-                            TestDataPlaceItemCardFullView.places
+                            HomeScreenTestData.places
                         ),
                         recommended = HomeUiState.Listings.Content.Recommended.Content(
-                            TestDataPlaceItemCardSemiView.places
+                            HomeScreenTestData.places
                         )
                     ),
                 )

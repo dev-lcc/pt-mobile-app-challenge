@@ -61,6 +61,9 @@ class HomeViewModel(
             val isLoading = storeValue.dataOrNull() == null
             val places = storeValue.dataOrNull()
                 ?.filter {
+                    it.type == type
+                }
+                ?.filter {
                     if(search.length >= 3) {
                         it.name?.contains(search)== true
                                 || it.description?.contains(search)== true

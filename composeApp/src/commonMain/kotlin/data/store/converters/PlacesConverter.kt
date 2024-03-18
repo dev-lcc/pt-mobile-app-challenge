@@ -90,3 +90,35 @@ fun PlaceSOT.mapToOutput(
         tags = this.tags?.let { json.decodeFromString(ListSerializer(String.serializer()), it) } ?: listOf(),
         isFavorite = this.isFavorite == 1L,
     )
+
+fun Place.mapToNetwork(
+    json: Json = Json
+) =
+    PlaceDTO(
+        id = this.id,
+        name = this.name,
+        description = this.description,
+        images = listOfNotNull(this.coverImage),
+        lat = this.lat,
+        lng = this.lng,
+        reviewsCount = this.reviewsCount,
+        rating = this.rating,
+        address = this.address,
+        amenities = this.amenities.map { it.rawValue },
+        price = this.price?.let { price ->
+            PlaceDTO.PriceDTO(
+                rate = price.rate,
+                currency = price.currency,
+                total = price.total,
+                priceItems = price.priceItems.map { item ->
+                    PlaceDTO.PriceDTO.Item(
+                        title = item.title,
+                        amount = item.amount,
+                    )
+                }
+            )
+        },
+        type = this.type?.rawValue,
+        tags = this.tags,
+        isFavorite = this.isFavorite,
+    )

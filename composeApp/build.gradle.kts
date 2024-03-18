@@ -97,12 +97,13 @@ kotlin {
             api(libs.coil3.kt)
             api(libs.coil3.kt.compose)
             api(libs.coil3.kt.network.ktor)
-
         }
         commonTest.dependencies {
             implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.ktor.client.mock)
+
+            implementation(libs.turbine)
         }
 
     }

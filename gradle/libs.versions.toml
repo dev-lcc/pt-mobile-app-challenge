@@ -44,6 +44,8 @@ store = "5.0.0-beta02"
 ### Coil Async Image Library
 coil3-kt = "3.0.0-alpha06"
 
+turbine = "1.1.0"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -110,6 +112,8 @@ store = { module = "org.mobilenativefoundation.store:store5", version.ref = "sto
 coil3-kt = { module = "io.coil-kt.coil3:coil", version.ref = "coil3-kt" }
 coil3-kt-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3-kt" }
 coil3-kt-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil3-kt" }
+
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

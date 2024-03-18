@@ -11,7 +11,7 @@ kotlin {
     sourceSets {
         val androidMain by getting {
             dependencies {
-                implementation(project(":composeApp"/*, configuration = "default"*/))
+                implementation(project(":composeApp"))
             }
         }
         androidMain.kotlin // to remove useless warning: "Variable 'androidMain' is never used"

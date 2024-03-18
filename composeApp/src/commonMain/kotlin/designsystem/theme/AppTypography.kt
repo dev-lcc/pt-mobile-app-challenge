@@ -9,6 +9,9 @@ import org.jetbrains.compose.resources.Font
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import ptmobileappchallenge.composeapp.generated.resources.Hiatus
+import ptmobileappchallenge.composeapp.generated.resources.Montserrat_Light
 import ptmobileappchallenge.composeapp.generated.resources.Montserrat_Medium
 import ptmobileappchallenge.composeapp.generated.resources.Montserrat_Regular
 import ptmobileappchallenge.composeapp.generated.resources.Montserrat_SemiBold
@@ -20,25 +23,27 @@ import ptmobileappchallenge.composeapp.generated.resources.Res
 fun AppTypography(): Typography {
     return Typography(
         displayLarge = TextStyle(
-            fontFamily = FontFamily(Font(resource = Res.font.Montserrat_Regular, weight = FontWeight.Normal)),
-            fontWeight = FontWeight.Normal,
-            fontSize = 96.sp,   // 116px    i.e. Aspen
+            // Hiatus font cannot be loaded for some reason.
+            fontFamily = FontFamily(Font(resource = Res.font.Hiatus, weight = FontWeight.Medium)),
+            fontWeight = FontWeight.Medium,
+            fontStyle = FontStyle.Italic,
+            fontSize = 116.sp,   // 116px    i.e. Onboarding -> "Aspen"
             lineHeight = 112.sp,
             letterSpacing = (-1.5).sp
         ),
         headlineMedium = TextStyle(
-            fontFamily = FontFamily(Font(resource = Res.font.Montserrat_Medium, weight = FontWeight.Medium)),
-            fontWeight = FontWeight.Medium,
-            fontSize = 34.sp,   // 40px i.e. "Plan your"
-            lineHeight = 36.sp,
+            fontFamily = FontFamily(Font(resource = Res.font.Montserrat_Light, weight = FontWeight.Light)),
+            fontWeight = FontWeight.Light,
+            fontSize = 26.sp,   // 40px i.e. "Plan your"
+            /*lineHeight = 36.sp,*/
             letterSpacing = 0.25.sp
         ),
         headlineLarge = TextStyle(
             fontFamily = FontFamily(Font(resource = Res.font.Montserrat_Medium, weight = FontWeight.Medium)),
             fontWeight = FontWeight.Medium,
-            fontSize = 60.sp,   // 40px i.e. Luxurious Vacation
-            lineHeight = 72.sp,
-            letterSpacing = (-0.5).sp
+            fontSize = 42.sp,   // 40px i.e. Luxurious Vacation
+            lineHeight = 46.sp,
+            letterSpacing = (-1.0).sp
         ),
         titleLarge = TextStyle(
             fontFamily = FontFamily(Font(resource = Res.font.Montserrat_Medium, weight = FontWeight.Medium)),

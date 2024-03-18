@@ -1,4 +1,8 @@
 <resources>
+    <string name="onboarding_subtitle1">Plan your</string>
+    <string name="onboarding_subtitle2">Luxurious Vacation</string>
+    <string name="onboarding_btn_explore">Explore</string>
+
     <string name="bottom_nav_label_home">Home</string>
     <string name="bottom_nav_label_tickets">Ticket</string>
     <string name="bottom_nav_label_favorites">Favorites</string>

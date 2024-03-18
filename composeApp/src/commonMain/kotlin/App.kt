@@ -23,6 +23,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import presentation.AppNavigation
+import presentation.onboarding.OnboardingScreen
 import ptmobileappchallenge.composeapp.generated.resources.Res
 import ptmobileappchallenge.composeapp.generated.resources.compose_multiplatform
 import kotlin.random.Random
@@ -50,27 +51,12 @@ fun App() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        modifier = Modifier,
-                        fontSize = 18.sp,
-                        text = "Onboarding Screen"
+                    OnboardingScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        onClickExplore = {
+                            navigator.navigate(AppNavigation.Main.path)
+                        }
                     )
-                    Spacer(Modifier.height(36.dp))
-                    AppFilledButton(
-                        onClick = {
-                            navigator.navigate(
-                                AppNavigation.Main.path
-                            )
-                        },
-                        modifier = Modifier,
-                        colors = AppButtonDefaults.filledButtonColors(
-                            containerColor = AppColor.BlueAccent,
-                            contentColor = Color.White
-                        ),
-                        cornerRadius = 18.dp,
-                    ) {
-                        Text("Explore")
-                    }
                 }
             }
 

@@ -89,7 +89,7 @@ kotlin {
             implementation(libs.store)
 
             // Navigation
-            implementation(libs.navigation.precompose)
+            api(libs.navigation.precompose)
             implementation(libs.navigation.precompose.viewmodel)
             implementation(libs.navigation.precompose.koin)
 

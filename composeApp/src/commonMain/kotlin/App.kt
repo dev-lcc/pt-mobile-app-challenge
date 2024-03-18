@@ -1,10 +1,8 @@
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,16 +15,15 @@ import designsystem.component.AppFilledButton
 import designsystem.theme.AppColor
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.navigation.NavHost
+import moe.tlaster.precompose.navigation.NavOptions
+import moe.tlaster.precompose.navigation.PopUpTo
 import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import presentation.AppNavigation
+import presentation.AppDestination
+import presentation.main.MainScreen
 import presentation.onboarding.OnboardingScreen
-import ptmobileappchallenge.composeapp.generated.resources.Res
-import ptmobileappchallenge.composeapp.generated.resources.compose_multiplatform
-import kotlin.random.Random
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -36,80 +33,54 @@ fun App() {
         val navigator = rememberNavigator()
 
         NavHost(
+            modifier = Modifier.fillMaxSize(),
             navigator = navigator,
-            initialRoute = AppNavigation.Onboarding.path,
+            initialRoute = AppDestination.Onboarding.path,
         ) {
 
             //
             //  "/onboarding"
             //
             scene(
-                route = AppNavigation.Onboarding.path,
+                route = AppDestination.Onboarding.path,
             ) {
-                Column(
+                OnboardingScreen(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    OnboardingScreen(
-                        modifier = Modifier.fillMaxSize(),
-                        onClickExplore = {
-                            navigator.navigate(AppNavigation.Main.path)
-                        }
-                    )
-                }
+                    onClickExplore = {
+                        navigator.navigate(
+                            route = AppDestination.Main.path,
+                            options = NavOptions(
+                                popUpTo = PopUpTo.First(true),
+                            )
+                        )
+                    }
+                )
             }
 
             //
             //  "/main"
             //
             scene(
-                route = AppNavigation.Main.path,
+                route = AppDestination.Main.path,
             ) {
-                Column(
+                MainScreen(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    Image(
-                        modifier = Modifier.size(64.dp),
-                        painter = painterResource(Res.drawable.compose_multiplatform),
-                        contentDescription = null,
-                    )
-
-                    Text(
-                        modifier = Modifier,
-                        fontSize = 18.sp,
-                        text = "Main Screen"
-                    )
-                    Spacer(Modifier.height(36.dp))
-                    AppFilledButton(
-                        onClick = {
-                            navigator.navigate(
-                                AppNavigation.PlaceDetail(Random.nextLong(999_999_999L)).path
-                            )
-                        },
-                        modifier = Modifier,
-                        colors = AppButtonDefaults.filledButtonColors(
-                            containerColor = AppColor.DarkerBlueAccent,
-                            contentColor = Color.White
-                        ),
-                        cornerRadius = 18.dp,
-                    ) {
-                        Text("View Place")
-                    }
-                }
+                    onNavigateToPlaceDetail = { placeId: Long ->
+                         navigator.navigate(
+                             AppDestination.PlaceDetail(placeId).path,
+                         )
+                    },
+                )
             }
 
             //
             //  "/place/{placeId}"
             //
             scene(
-                route = AppNavigation.PlaceDetail.PATH,
+                route = AppDestination.PlaceDetail.PATH,
             ) { navBackStackEntry ->
                 
-                val placeId = navBackStackEntry.path<String>(AppNavigation.PlaceDetail.ARG_NAME)
+                val placeId = navBackStackEntry.path<String>(AppDestination.PlaceDetail.ARG_NAME)
                     ?.toLong(10)
 
                 Column(

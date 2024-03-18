@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     id("kotlin-parcelize")
     alias(libs.plugins.kotlinSerialization)
@@ -13,7 +13,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = "17"
             }
         }
     }
@@ -41,8 +41,11 @@ kotlin {
     sourceSets {
 
         androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            // Compose Preview
+            implementation(libs.compose.ui.util)
+            implementation(libs.compose.ui.tooling)
+            implementation(libs.compose.ui.tooling.preview)
 
             // Local Database
             implementation(libs.sqlDelight.driver.android)
@@ -58,6 +61,8 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
+            implementation(compose.material3)
+            /*implementation(compose.materialIconsExtended)*/
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -93,24 +98,27 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.devlcc.ptmobileappchallenge"
+    namespace = "io.github.devlcc.ptmobileappchallenge.common"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    /*sourceSets["main"].res.srcDirs("src/androidMain/res")*/
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "io.github.devlcc.ptmobileappchallenge"
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidXComposeCompiler.get()
     }
     buildTypes {
         getByName("release") {
@@ -118,11 +126,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     dependencies {
-        debugImplementation(libs.compose.ui.tooling)
+        implementation(libs.compose.ui.util)
+        implementation(libs.compose.ui.tooling)
+        implementation(libs.compose.ui.tooling.preview)
 
         // https://github.com/xerial/sqlite-jdbc?tab=readme-ov-file
         testImplementation("org.xerial:sqlite-jdbc") {

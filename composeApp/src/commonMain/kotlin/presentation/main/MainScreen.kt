@@ -66,7 +66,7 @@ fun MainScreen(
                             launchSingleTop = true,
                             includePath = true,
                             popUpTo = PopUpTo(
-                                route = ""/*MainDestination.Home.path*/,
+                                route = /*""*/MainDestination.Home.path,
                                 inclusive = true,
                             ),
                         )

@@ -26,9 +26,9 @@ fun getDataNetworkModule(
         )
     }
 
-    single<HttpClientEngine> {
+    /*single<HttpClientEngine> {
         provideHttpClientEngine()
-    }
+    }*/
 
     single<HttpClient> {
         provideKtorClient(
@@ -37,9 +37,13 @@ fun getDataNetworkModule(
             isDebug = isDebug,
         )
     }
+
+    includes(platformNetworkModule())
 }
 
-private fun provideHttpClientEngine(): HttpClientEngine = CIO.create {
+expect fun platformNetworkModule(): Module
+
+/*private fun provideHttpClientEngine(): HttpClientEngine = CIO.create {
     maxConnectionsCount = 1000
     endpoint {
         // this: EndpointConfig
@@ -49,7 +53,7 @@ private fun provideHttpClientEngine(): HttpClientEngine = CIO.create {
         connectTimeout = 20_000L
         connectAttempts = 3
     }
-}
+}*/
 
 private fun provideKtorClient(
     engine: HttpClientEngine,

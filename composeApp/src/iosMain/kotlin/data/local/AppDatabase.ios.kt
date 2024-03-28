@@ -1,5 +1,6 @@
 package data.local
 
+import androidx.annotation.VisibleForTesting
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import app.cash.sqldelight.driver.native.wrapConnection
@@ -17,6 +18,7 @@ actual class DriverFactory() {
 }
 
 // For Unit Testing ONLY
+@VisibleForTesting
 actual fun createInMemorySqlDriver(): SqlDriver {
     return NativeSqliteDriver(
         configuration = DatabaseConfiguration(

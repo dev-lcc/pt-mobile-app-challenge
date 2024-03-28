@@ -25,7 +25,8 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
+            isStatic = false/*true*/
+            linkerOpts("-lsqlite3")
         }
     }
 
@@ -50,11 +51,15 @@ kotlin {
             // Local Database
             implementation(libs.sqlDelight.driver.android)
             implementation(libs.sqlDelight.driver.sqlite)
+
+            implementation(libs.ktor.client.engine.okhttp)
         }
 
         iosMain.dependencies {
             // Local Database
             implementation(libs.sqlDelight.driver.native)
+
+            implementation(libs.ktor.client.engine.darwin)
         }
 
         commonMain.dependencies {

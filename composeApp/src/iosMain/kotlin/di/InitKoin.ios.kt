@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 @OptIn(ExperimentalForeignApi::class)
 fun initKoinIos(
-    launchOptions: Map<Any?, Any?>,
+    launchOptions: Map<Any?, Any?>?,
     // TODO:: Add platform-specific params
     isDebug: Boolean,
 ): KoinApplication =

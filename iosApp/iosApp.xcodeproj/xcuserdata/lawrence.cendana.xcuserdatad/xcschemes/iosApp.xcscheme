@@ -34,7 +34,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/lawrence.cendana/ParcelTracker/pt-mobile-app-challenge"
+      customWorkingDirectory = "/Volumes/Samsung-1TB-APFS/Job Interview Coding Exams/2024/ParcelTracker/pt-mobile-app-challenge"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"

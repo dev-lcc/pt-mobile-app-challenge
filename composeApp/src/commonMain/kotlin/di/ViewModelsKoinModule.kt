@@ -5,7 +5,7 @@ import org.koin.dsl.module
 import presentation.main.home.HomeViewModel
 
 fun getViewModelsModule(): Module = module {
-    single<HomeViewModel> {
+    factory<HomeViewModel> {
         HomeViewModel(
             listPlacesStore = get(),
         )

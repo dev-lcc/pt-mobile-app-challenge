@@ -117,7 +117,7 @@ class HomeViewModel(
         viewModelScope.launch {
             when(event) {
                 is HomeEvent.SearchTextInput -> {
-
+                    _searchTextInput.update { event.text }
                 }
                 is HomeEvent.Refresh -> {
                     this@HomeViewModel.offset = 0
